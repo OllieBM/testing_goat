@@ -13,6 +13,7 @@ class NewVisitorTest(unittest.TestCase):
         self.browser.quit()
 
     def test_can_start_a_todo_list(self):
+        print("hello")
         # Edith has heard about a cool new online to-do app.
         # She goes to check out its homepage
         self.browser.get("http://localhost:8000")
@@ -37,7 +38,10 @@ class NewVisitorTest(unittest.TestCase):
 
         table = self.browser.find_element(By.ID, "id_list_table")
         rows = table.find_elements(By.TAG_NAME, "tr")
-        self.assertTrue(any(row.text == "1: Buy peacock feathers" for row in rows))
+        self.assertTrue(
+            any(row.text == "1: Buy peacock feathers" for row in rows),
+            "New to-do item did not appear in table",
+        )
 
         # There is still a text box inviting her to add another item.
         # She enters "Use peacock feathers to make a fly"
@@ -45,4 +49,7 @@ class NewVisitorTest(unittest.TestCase):
         self.fail("Finish the test!")
 
         # The page updates again, and now shows both items on her list
-        [...]
+
+
+if __name__ == "__main__":
+    unittest.main()

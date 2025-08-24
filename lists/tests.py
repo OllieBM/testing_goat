@@ -11,3 +11,13 @@ class HomePageTest(TestCase):
     def test_renders_homepage_content(self):
         response = self.client.get("/")
         self.assertContains(response, "To-Do")
+
+    def test_renders_input_form(self):
+        response = self.client.get("/")
+        self.assertContains(response, '<form method="POST">')
+        self.assertContains(response, '<input name="item_text"')
+
+    def test_can_save_a_POST_request(self):
+        response = self.client.post("/", data={"item_text": "a new list item"})
+        self.assertEqual(response, "A new list item")
+        self.assertTemplateUsed(response, "home.html")
